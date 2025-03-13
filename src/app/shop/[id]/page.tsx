@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // This would typically come from your database
 const product = {
@@ -16,9 +17,9 @@ const product = {
     'Built-in microphone',
   ],
   images: [
-    '/images/headphones-1.jpg',
-    '/images/headphones-2.jpg',
-    '/images/headphones-3.jpg',
+    '/images/products/headphones-1.jpg',
+    '/images/products/headphones-2.jpg',
+    '/images/products/headphones-3.jpg',
   ],
   specifications: {
     'Brand': 'SoundMaster',
@@ -30,6 +31,8 @@ const product = {
 };
 
 export default function ProductPage({ params }: { params: { id: string } }) {
+  const [selectedImage, setSelectedImage] = React.useState(product.images[0]);
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -37,14 +40,35 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           {/* Image gallery */}
           <div className="flex flex-col">
             <div className="aspect-h-1 aspect-w-1 w-full">
-              <div className="h-96 w-full bg-gray-200 rounded-lg animate-pulse" />
+              <div className="relative h-96 w-full overflow-hidden rounded-lg">
+                <Image
+                  src={selectedImage}
+                  alt={product.name}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
+                />
+              </div>
             </div>
             <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
               <div className="grid grid-cols-4 gap-6">
                 {product.images.map((image, index) => (
-                  <div key={index} className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg">
-                    <div className="h-24 w-full bg-gray-200 animate-pulse" />
-                  </div>
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(image)}
+                    className={`relative aspect-h-1 aspect-w-1 overflow-hidden rounded-lg ${
+                      selectedImage === image ? 'ring-2 ring-primary-500' : ''
+                    }`}
+                  >
+                    <Image
+                      src={image}
+                      alt={`${product.name} view ${index + 1}`}
+                      fill
+                      className="object-cover object-center"
+                      sizes="(max-width: 768px) 25vw, (max-width: 1200px) 20vw, 15vw"
+                    />
+                  </button>
                 ))}
               </div>
             </div>

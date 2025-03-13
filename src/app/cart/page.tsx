@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import BillingOptions from '@/components/billing/BillingOptions';
 
 // This would typically come from your cart state management
@@ -9,14 +10,14 @@ const cartItems = [
     name: 'Wireless Headphones',
     price: 99.99,
     quantity: 1,
-    imageUrl: '/images/headphones.jpg',
+    imageUrl: '/images/products/headphones.jpg',
   },
   {
     id: 2,
     name: 'Smart Watch',
     price: 199.99,
     quantity: 1,
-    imageUrl: '/images/smartwatch.jpg',
+    imageUrl: '/images/products/smartwatch.jpg',
   },
 ];
 
@@ -43,7 +44,15 @@ export default function CartPage() {
               {cartItems.map((item) => (
                 <li key={item.id} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
-                    <div className="h-24 w-24 rounded-md bg-gray-200 animate-pulse" />
+                    <div className="relative h-24 w-24 overflow-hidden rounded-md">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        fill
+                        className="object-cover object-center"
+                        sizes="96px"
+                      />
+                    </div>
                   </div>
 
                   <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">

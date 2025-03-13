@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const products = [
   {
@@ -7,28 +8,28 @@ const products = [
     name: 'Wireless Headphones',
     price: 99.99,
     category: 'Electronics',
-    imageUrl: '/images/headphones.jpg',
+    imageUrl: '/images/products/headphones.jpg',
   },
   {
     id: 2,
     name: 'Smart Watch',
     price: 199.99,
     category: 'Electronics',
-    imageUrl: '/images/smartwatch.jpg',
+    imageUrl: '/images/products/smartwatch.jpg',
   },
   {
     id: 3,
     name: 'Running Shoes',
     price: 79.99,
     category: 'Fashion',
-    imageUrl: '/images/shoes.jpg',
+    imageUrl: '/images/products/shoes.jpg',
   },
   {
     id: 4,
     name: 'Coffee Maker',
     price: 129.99,
     category: 'Home & Living',
-    imageUrl: '/images/coffee-maker.jpg',
+    imageUrl: '/images/products/coffee-maker.jpg',
   },
   // Add more products as needed
 ];
@@ -114,8 +115,15 @@ export default function ShopPage() {
               <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
                 {products.map((product) => (
                   <Link key={product.id} href={`/shop/${product.id}`} className="group">
-                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                      <div className="h-48 w-full bg-gray-200 animate-pulse" />
+                    <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200">
+                      <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        width={500}
+                        height={500}
+                        className="h-full w-full object-cover object-center group-hover:opacity-75"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
                     </div>
                     <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
                     <p className="mt-1 text-lg font-medium text-gray-900">${product.price}</p>
