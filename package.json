@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@prisma/client": "^5.10.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/nodemailer": "^6.4.17",
+    "bcryptjs": "^3.0.2",
+    "nodemailer": "^6.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

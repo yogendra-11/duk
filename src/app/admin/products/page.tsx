@@ -4,6 +4,15 @@ import React, { useState } from 'react';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import ProductForm from '@/components/admin/ProductForm';
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  stock: number;
+  images: string[];
+}
+
 // This would come from your database
 const initialProducts = [
   {
@@ -18,27 +27,27 @@ const initialProducts = [
 ];
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState(null);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
-  const handleAddProduct = (product) => {
+  const handleAddProduct = (product: Omit<Product, 'id'>) => {
     setProducts([...products, { ...product, id: products.length + 1 }]);
     setIsFormOpen(false);
   };
 
-  const handleEditProduct = (product) => {
+  const handleEditProduct = (product: Product) => {
     setEditingProduct(product);
     setIsFormOpen(true);
   };
 
-  const handleUpdateProduct = (updatedProduct) => {
+  const handleUpdateProduct = (updatedProduct: Product) => {
     setProducts(products.map(p => p.id === updatedProduct.id ? updatedProduct : p));
     setIsFormOpen(false);
     setEditingProduct(null);
   };
 
-  const handleDeleteProduct = (productId) => {
+  const handleDeleteProduct = (productId: number) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       setProducts(products.filter(p => p.id !== productId));
     }
@@ -104,7 +113,7 @@ export default function ProductsPage() {
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
             <div className="inline-block transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
               <ProductForm
-                product={editingProduct}
+                product={editingProduct || undefined}
                 onSubmit={editingProduct ? handleUpdateProduct : handleAddProduct}
                 onCancel={() => {
                   setIsFormOpen(false);
