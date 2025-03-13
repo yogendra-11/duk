@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
+:root {
+  --primary-color: #3b82f6;
+}
+
+body {
+  @apply antialiased text-gray-600;
+} 

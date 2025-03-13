@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { PhoneIcon, ChatBubbleLeftRightIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 

@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Dukan - Your Online Store',
-  description: 'Shop the latest trends and best deals at Dukan',
+  description: 'Shop the best products at great prices',
 };
 
 export default function RootLayout({
